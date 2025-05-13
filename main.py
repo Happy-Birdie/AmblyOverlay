@@ -8,7 +8,7 @@ from time import time
 from windowcapture import WindowCapture
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
-a
+
 # initialize the WindowCapture class
 wincap = WindowCapture('Home - File Explorer') #Snipping Tool
 
