@@ -1,6 +1,10 @@
 import numpy as np
 import win32gui, win32ui, win32con
 
+'''
+Originally form https://www.youtube.com/watch?v=WymCpVUPWQ4;
+https://github.com/learncodebygaming/opencv_tutorials/tree/master/004_window_capture
+'''
 
 class WindowCapture:
 
