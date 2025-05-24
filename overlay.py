@@ -3,7 +3,7 @@ import cv2
 from PyQt5.QtWidgets import QApplication, QLabel, QWidget, QVBoxLayout
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtCore import QTimer, Qt
-import r5  #import capture.py
+import window_capture
 
 class CaptureWindow(QWidget):
     def __init__(self, window_title):
