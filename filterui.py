@@ -2,7 +2,7 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QComboBox, QApplication
 from PyQt5.QtCore import QTimer
 import sys
-import global_var
+import global_vars
 import pygetwindow as gw
 import win32gui
 import win32con
