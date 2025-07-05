@@ -64,7 +64,7 @@ class CaptureWindow(QWidget):
 
     def closeEvent(self, event):
         try:
-            if self.capture: # Ensure capture object exists before trying to stop
+            if self.capture: #ensure capture object exists before stopping
                 self.capture.stop()
         except Exception as e:
             print(f"Error stopping capture: {e}")
