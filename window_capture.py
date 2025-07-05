@@ -4,7 +4,7 @@ from windows_capture import WindowsCapture, Frame, InternalCaptureControl
 import cv2
 import global_vars
 import io
-import numpy as np # Import numpy
+import numpy as np #for img handling
 
 current_frame = None
 
@@ -19,7 +19,7 @@ def start_capture(window_name: str):
     def on_frame_arrived(frame: Frame, capture_control: InternalCaptureControl):
         global current_frame
         # Save as BMP for potentially faster disk I/O (less compression overhead)
-        frame.save_as_image("scrn.bmp") # Changed from scrn.jpg to scrn.bmp
+        frame.save_as_image("scrn.bmp") #changed from scrn.jpg to scrn.bmp --> cheaper & faster
         img = cv2.imread("scrn.bmp")
         if img is not None:
             current_frame = img
