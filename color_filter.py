@@ -14,5 +14,5 @@ def apply_filter(image): #image = frame (BGR format)
     #blue_out = cyan, green_out = cyan, red_out = red
     red_cyan_image = cv2.merge((cyan, cyan, red)) #BGR format
 
-    #no need for float conversion and back if the desired output is just this merged image --> cheap & faster
+    #no need for float conversion and back if the desired output is just this merged image --> cheaper & faster
     return red_cyan_image # Direct return of uint8 BGR image
