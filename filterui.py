@@ -6,6 +6,7 @@ import global_vars
 import pygetwindow as gw
 import win32gui
 import win32con
+from overlay import CaptureWindow
 
 class FilterUI(QWidget):
     def __init__(self):
@@ -31,12 +32,27 @@ class FilterUI(QWidget):
 
     def on_window_selected(self, text):
         print(f"Selected window: {text}")
-        r8.selected_window = text
+        global_vars.selected_window = text
+
+        if global_vars.overlay_window:
+            global_vars.overlay_window.close()  #remove old one
+
+        hwnd = win32gui.FindWindow(None, text)
+        if hwnd:
+            from PyQt5.QtCore import QTimer
+            QTimer.singleShot(100, lambda: self.spawn_overlay(text))  #delay launch slightly so less huge lag
+
+    def spawn_overlay(self, title):
+        global_vars.overlay_window = CaptureWindow(title)
+        global_vars.overlay_window.show()
+
+    def is_valid(self, title):
+        return any(title.strip().lower() == b.lower() for b in global_vars.WINDOW_INVALID) 
 
     def get_window_list(self):
         current_windows = [title for title in gw.getAllTitles() if title.strip()]
         current_windows = [title for title in current_windows
-                       if title != self.windowTitle() and self. is_maximizable(title)]
+                if title != self.windowTitle() and not self.is_valid(title)]
         if current_windows != self.previous_windows and self.windowTitle() not in current_windows:
             self.combo_box.blockSignals(True)
             current_text = self.combo_box.currentText()
@@ -47,18 +63,6 @@ class FilterUI(QWidget):
             self.combo_box.blockSignals(False)
             self.previous_windows = current_windows
 
-    def is_maximizable(self, title):
-        try:
-            hwnds = gw.getWindowsWithTitle(title)
-            if not hwnds:
-                return False
-            hwnd = hwnds[0]._hWnd
-            style = win32gui.GetWindowLong(hwnd, win32con.GWL_STYLE)
-            has_maximize = bool(style & win32con.WS_MAXIMIZEBOX)
-            is_visible = win32gui.IsWindowVisible(hwnd)
-            return has_maximize and is_visible
-        except Exception:
-            return False
 
 
 if __name__ == "__main__":
